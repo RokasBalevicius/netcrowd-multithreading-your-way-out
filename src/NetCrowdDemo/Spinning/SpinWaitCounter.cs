@@ -13,6 +13,8 @@ namespace NetCrowdDemo.Spinning
             // get lock
             while(Interlocked.CompareExchange(ref locker, 1, 0) != 0)
             {
+                // tick count is internationally high, so that it is very visible how cpu usage spikes.
+                // in reality we want to keep this value low, so that spin wait can do multiple tries during the time slice.
                 Thread.SpinWait(1000 * 1000 * 10);
             }
 
